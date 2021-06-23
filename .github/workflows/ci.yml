@@ -66,6 +66,7 @@ jobs:
       with:
         name: ${{ env.PROJECT_NAME }}-py${{ matrix.python-version }}-${{ env.TRAVIS_OS_NAME }}-${{ matrix.platform }}
         path: wheelhouse/*.whl
+  
   build-aarch64:
     name: "Build on ${{ matrix.pyver }} aarch64"
     strategy:
@@ -92,6 +93,7 @@ jobs:
         docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
           ${{ env.img }} \
           bash -exc '${{ env.py }} -m pip install --upgrade pip && ${{ env.py }} -m pip install virtualenv && \
+          source .env/bin/activate && \
           source multibuild/common_utils.sh && \
           source multibuild/travis_steps.sh && \
           echo "------- BEFORE INSTALL --------" && \
@@ -99,7 +101,8 @@ jobs:
           echo "------- BUILD WHEEL --------" && \
           build_wheel $REPO_DIR $PLAT && \
           echo "------- INSTALL_RUN --------" && \
-          install_run $PLAT'
+          install_run $PLAT && \
+          deactivate'
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
