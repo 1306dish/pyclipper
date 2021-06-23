@@ -33,12 +33,11 @@ jobs:
       UNICODE_WIDTH: 32
       MB_PYTHON_VERSION: ${{ matrix.python-version }}
       TRAVIS_PYTHON_VERSION: ${{ matrix.python-version }}
-      MB_ML_VER: ${{ matrix.MB_ML_VER }}
       TRAVIS_REPO_SLUG: ${{ github.repository }}
       TRAVIS_BRANCH: ${{ github.head_ref }}
       TRAVIS_PULL_REQUEST: ${{ github.event.number }}
       TRAVIS_BUILD_DIR: ${{ github.workspace }}
-      MULTIBUILD_WHEELS_STAGING_ACCESS: ${{ secrets.MULTIBUILD_WHEELS_STAGING_ACCESS }}
+      #MULTIBUILD_WHEELS_STAGING_ACCESS: ${{ secrets.MULTIBUILD_WHEELS_STAGING_ACCESS }}
 
 
     steps:
@@ -62,8 +61,8 @@ jobs:
     - name: Setup Special Environment variables for aarch64
       if: startsWith(matrix.platform,'aarch64')
       run: |
-        echo "MB_ML_VER=2014"
-        echo "PLAT=aarch64"
+        echo "MB_ML_VER=2014" >> $GITHUB_ENV
+        echo "PLAT=aarch64" >> $GITHUB_ENV
         echo "DOCKER_TEST_IMAGE=$(echo multibuild/xenial_arm64v8)" >> $GITHUB_ENV
     - name: Install virtualenv
       run: |
