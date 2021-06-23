@@ -30,10 +30,16 @@ jobs:
             platform: aarch64
     env:
       REPO_DIR: "."
-      PLAT: "x86_64"
       UNICODE_WIDTH: 32
       MB_PYTHON_VERSION: ${{ matrix.python-version }}
-      #TRAVIS_PYTHON_VERSION: ${{ matrix.python-version }}
+      TRAVIS_PYTHON_VERSION: ${{ matrix.python-version }}
+      MB_ML_VER: ${{ matrix.MB_ML_VER }}
+      TRAVIS_REPO_SLUG: ${{ github.repository }}
+      TRAVIS_BRANCH: ${{ github.head_ref }}
+      TRAVIS_PULL_REQUEST: ${{ github.event.number }}
+      TRAVIS_BUILD_DIR: ${{ github.workspace }}
+      MULTIBUILD_WHEELS_STAGING_ACCESS: ${{ secrets.MULTIBUILD_WHEELS_STAGING_ACCESS }}
+
 
     steps:
     - uses: actions/checkout@v2
@@ -43,7 +49,6 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-        architecture: ${{ matrix.platform }}
     - uses: docker/setup-qemu-action@v1
       if: ${{ matrix.platform == 'aarch64' }}
       name: Set up QEMU
