@@ -91,7 +91,7 @@ jobs:
       run: |
         docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
           ${{ env.img }} \
-          bash -exc '${{ env.py }} -m pip install --upgrade pip && -m pip install virtualenv && \
+          bash -exc '${{ env.py }} -m pip install --upgrade pip && ${{ env.py }} -m pip install virtualenv && \
           source multibuild/common_utils.sh && \
           source multibuild/travis_steps.sh && \
           echo "------- BEFORE INSTALL --------" && \
