@@ -33,7 +33,7 @@ jobs:
       PLAT: "x86_64"
       UNICODE_WIDTH: 32
       MB_PYTHON_VERSION: ${{ matrix.python-version }}
-      TRAVIS_PYTHON_VERSION: ${{ matrix.python-version }}
+      #TRAVIS_PYTHON_VERSION: ${{ matrix.python-version }}
 
     steps:
     - uses: actions/checkout@v2
