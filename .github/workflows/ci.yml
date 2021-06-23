@@ -99,7 +99,7 @@ jobs:
           echo "------- BUILD WHEEL --------" && \
           build_wheel $REPO_DIR $PLAT && \
           echo "------- INSTALL_RUN --------" && \
-          install_run $PLAT
+          install_run $PLAT'
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
